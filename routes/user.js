@@ -52,7 +52,7 @@ router.post("/register", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });
-
+console.log(savedSoboUser);
     return res.json({
       status: "success",
       message: "Account created successfully.",
@@ -84,7 +84,7 @@ router.post("/signin", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { email: SoboUser.email , role : SoboUser.isrole},
+      { id: SoboUser._id , role : SoboUser.isrole},
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "1y",
@@ -94,6 +94,7 @@ router.post("/signin", async (req, res) => {
       httpOnly: true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
+    console.log(token);
     return res.json({
       status: "success",
       message: "Login  successfully.",
