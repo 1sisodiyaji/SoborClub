@@ -35,9 +35,9 @@ router.post("/register", async (req, res) => {
     const savedSoboUser = await newUser.save().catch((error) => {
       console.error("Error saving SoboUser to database:", error);
       throw error;
-    });
+    }); 
     const token = jwt.sign(
-      { email: User.email , role : User.isrole },
+      { email: savedSoboUser.email , role : savedSoboUser.isrole },
       process.env.JWT_SECRET_KEY,
       {
         expiresIn: "1y", // Token expiration time
