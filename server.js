@@ -12,7 +12,7 @@ Database();
 app.use("/api/", userRoutes);
 app.use(cors());
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('You are fetching our Api ');
 });
 
 const PORT = process.env.PORT || 8088;
