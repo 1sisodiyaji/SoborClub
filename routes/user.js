@@ -6,27 +6,26 @@ const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
   const { name, email, password , confirmPassword , isrole } = req.body;
-  console.log("Received data:", req.body);
   if (!name || !email || !password || !confirmPassword || !isrole) {
     return res.json({
       status: "error",
       message: "Please fill the data Correctly.",
     });
   }
-
+console.log("1");
   if(password !== confirmPassword){
     return res.json({
           status: "error",
           message: "Password and Confirm Password does not match.",
     });
   }
-
+  console.log("12");
   try {
     const User = await SoboUser.findOne({ email });
     if (User) {
       return res.json({ status: "error", message: "SoboUser already exists" });
     }
-
+    console.log("123");
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = new SoboUser({
       name,
@@ -34,6 +33,7 @@ router.post("/register", async (req, res) => {
       password: hashPassword,
       isrole
     });
+    console.log("1234");
     const savedSoboUser = await newUser.save().catch((error) => {
       console.error("Error saving SoboUser to database:", error);
       throw error;
@@ -45,7 +45,7 @@ router.post("/register", async (req, res) => {
         expiresIn: "1y", // Token expiration time
       }
     );
-
+    console.log("12345");
     // Set the token in a cookie
     res.cookie("token", token, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
@@ -59,6 +59,7 @@ console.log(" Account created successfully "+savedSoboUser);
       token,
     });
   } catch (error) {
+    console.log("123456");
     console.error(error);
     return res.json({ status: "error", message: "Account creation failed." });
   }
