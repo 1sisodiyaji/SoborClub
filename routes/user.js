@@ -52,7 +52,7 @@ router.post("/register", async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });
-console.log(savedSoboUser);
+console.log(" Account created successfully "+savedSoboUser);
     return res.json({
       status: "success",
       message: "Account created successfully.",
@@ -94,12 +94,8 @@ router.post("/signin", async (req, res) => {
       httpOnly: true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
-    console.log(token);
-    return res.json({
-      status: "success",
-      message: "Login  successfully.",
-      token,
-    });
+    console.log("Login  successfully." + User);
+    return res.json({ status: "success",  message: "Login  successfully.", token});
   } catch (error) {
     console.error(error);
     return res.json({ status: "error", message: "Login failed." });
